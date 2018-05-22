@@ -38,7 +38,6 @@ defmodule ExWire.Handshake.EIP8 do
         init_vector \\ nil
       ) do
     Logger.debug("[Network] Sending EIP8 Handshake to #{remote_addr}")
-
     # According to EIP-8, we add padding to prevent length detection attacks. Thus, it should be
     # acceptable to pad with zero instead of random data. We opt for padding with zeros.
     padding = ExthCrypto.Math.pad(<<>>, 100)

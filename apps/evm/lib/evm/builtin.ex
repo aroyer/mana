@@ -7,6 +7,8 @@ defmodule EVM.Builtin do
   TODO: Implement and add doc tests.
   """
 
+  @g_identity 15 + 3
+
   @spec run_ecrec(EVM.Gas.t(), EVM.ExecEnv.t()) ::
           {EVM.Gas.t(), EVM.SubState.t(), EVM.ExecEnv.t(), EVM.VM.output()}
   def run_ecrec(gas, exec_env), do: {gas, %EVM.SubState{}, exec_env, <<>>}
@@ -32,7 +34,7 @@ defmodule EVM.Builtin do
           {EVM.Gas.t(), EVM.SubState.t(), EVM.ExecEnv.t(), EVM.VM.output()}
   def run_id(gas, exec_env) do
     data = exec_env.data
-    used_gas = 15 + 3 * MathHelper.bits_to_words(byte_size(data))
+    used_gas = @g_identity * MathHelper.bits_to_words(byte_size(data))
 
     if(used_gas < gas) do
       remaining_gas = gas - used_gas
